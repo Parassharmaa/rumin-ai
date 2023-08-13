@@ -1,6 +1,5 @@
 import { api } from "~/utils/api";
 import Image from "next/image";
-import { Icons } from "../ui/icons";
 import { Card, CardContent } from "../ui/card";
 import moment from "moment";
 import { Calendar } from "lucide-react";

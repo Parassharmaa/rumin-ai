@@ -1,5 +1,6 @@
 import { projectRouter } from "~/server/api/routers/project";
 import { createTRPCRouter } from "~/server/api/trpc";
+import { focusGroupRouter } from "./routers/focusGroup";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   project: projectRouter,
+  focusGroup: focusGroupRouter,
 });
 
 // export type definition of API

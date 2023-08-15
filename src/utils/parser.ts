@@ -8,7 +8,7 @@ export const parseCsvToJson = (csv: string | undefined, separator = ",") => {
 
     // strip double quotes from the header
     headers.forEach((header, index) => {
-      headers[index] = header.replace(/"/g, "");
+      headers[index] = header.replace(/"/g, "").trim();
     });
 
     const data = lines.slice(1).map((line) => {
@@ -19,7 +19,7 @@ export const parseCsvToJson = (csv: string | undefined, separator = ",") => {
       headers.forEach((header, index) => {
         // strip double quotes from the value
         const value = values[index]?.replace(/"/g, "");
-        row[header] = value;
+        row[header] = value?.trim();
       });
       return row;
     });

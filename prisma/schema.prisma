@@ -59,14 +59,28 @@ model VerificationToken {
 }
 
 model Project {
-    id          String      @id @default(cuid())
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
-    title       String
-    description String
-    userId      String
-    user        User        @relation(fields: [userId], references: [id])
-    projectType ProjectType @default(FocusGroup)
+    id                     String                   @id @default(cuid())
+    createdAt              DateTime                 @default(now())
+    updatedAt              DateTime                 @updatedAt
+    title                  String
+    description            String
+    userId                 String
+    user                   User                     @relation(fields: [userId], references: [id])
+    projectType            ProjectType              @default(FocusGroup)
+    FocusGroupParticipants FocusGroupParticipants[]
+}
+
+model FocusGroupParticipants {
+    id         Int      @id @default(autoincrement())
+    name       String
+    age        String
+    gender     String
+    background String
+    bio        String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    projectId  String
+    project    Project  @relation(fields: [projectId], references: [id])
 }
 
 enum ProjectType {

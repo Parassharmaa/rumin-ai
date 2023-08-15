@@ -71,4 +71,49 @@ export const focusGroupRouter = createTRPCRouter({
 
       return parseCsvToJson(message.content) as AIParticipantResponse;
     }),
+
+  addParticipant: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        participants: z.array(
+          z.object({
+            name: z.string(),
+            age: z.string(),
+            gender: z.string(),
+            background: z.string(),
+            bio: z.string(),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findUnique({
+        where: {
+          id: input.projectId,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      if (!project) {
+        throw new Error("Project not found");
+      }
+
+      if (project?.projectType !== ProjectType.FocusGroup) {
+        throw new Error("Invalid project type");
+      }
+
+      const participants = await ctx.prisma.focusGroupParticipants.createMany({
+        data: input.participants.map((participant) => ({
+          projectId: input.projectId,
+          name: participant.name,
+          age: participant.age,
+          gender: participant.gender,
+          background: participant.background,
+          bio: participant.bio,
+        })),
+      });
+
+      return participants;
+    }),
 });

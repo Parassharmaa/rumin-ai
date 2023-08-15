@@ -29,18 +29,29 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GenerateParticipantsForm from "./generateParticipantsForm";
 import { Input } from "../ui/input";
-import { CrossIcon, PlusIcon, TrashIcon, X } from "lucide-react";
+import { PlusIcon, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
+import { api } from "~/utils/api";
+import { NumericFormat } from "react-number-format";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   participants: z.array(
     z.object({
-      name: z.string().nonempty(),
-      age: z.string(),
-      gender: z.string(),
-      background: z.string(),
+      name: z.string().nonempty({
+        message: "Name is required",
+      }),
+      age: z.string().nonempty({
+        message: "Age is required",
+      }),
+      gender: z.string().nonempty({
+        message: "Gender is required",
+      }),
+      background: z.string().nonempty({
+        message: "Background is required",
+      }),
       bio: z.string(),
     })
   ),
@@ -64,6 +75,12 @@ const NewParticipants = () => {
     },
   });
 
+  const { mutate, isLoading } = api.focusGroup.addParticipant.useMutation({
+    onSuccess: () => {
+      handleClose();
+    },
+  });
+
   const { control } = form;
 
   const { fields, append, remove } = useFieldArray({
@@ -75,6 +92,15 @@ const NewParticipants = () => {
     close();
     form.reset({
       participants: [defaultValue],
+    });
+  };
+
+  const router = useRouter();
+
+  const submitParticipants = (data: z.infer<typeof formSchema>) => {
+    mutate({
+      projectId: router.query.id as string,
+      participants: data.participants,
     });
   };
 
@@ -100,7 +126,10 @@ const NewParticipants = () => {
         }}
       >
         <Form {...form}>
-          <form className="space-y-8">
+          <form
+            className="space-y-8"
+            onSubmit={form.handleSubmit(submitParticipants)}
+          >
             <ScrollArea>
               <DialogContent
                 forceMount
@@ -169,7 +198,13 @@ const NewParticipants = () => {
                               <FormItem>
                                 <FormLabel>Age</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Age" {...field} />
+                                  <NumericFormat
+                                    customInput={Input}
+                                    placeholder="Age"
+                                    min={1}
+                                    allowNegative={false}
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -193,6 +228,7 @@ const NewParticipants = () => {
                                         <SelectValue placeholder="Gender" />
                                       </SelectTrigger>
                                     </FormControl>
+                                    <FormMessage />
                                     <SelectContent>
                                       <SelectItem value={"Male"}>
                                         Male
@@ -273,7 +309,13 @@ const NewParticipants = () => {
                   <Button variant="outline" onClick={handleClose}>
                     Cancel
                   </Button>
-                  <Button>
+                  <Button
+                    onClick={form.handleSubmit(submitParticipants)}
+                    disabled={isLoading}
+                  >
+                    {isLoading && (
+                      <Icons.spinner className="h-4 animate-spin" />
+                    )}
                     <div>Create</div>
                   </Button>
                 </DialogFooter>

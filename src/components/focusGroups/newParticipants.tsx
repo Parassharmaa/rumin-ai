@@ -71,6 +71,13 @@ const NewParticipants = () => {
     name: "participants",
   });
 
+  const handleClose = () => {
+    close();
+    form.reset({
+      participants: [defaultValue],
+    });
+  };
+
   return (
     <>
       <Card
@@ -86,10 +93,10 @@ const NewParticipants = () => {
         modal
         open={isOpen}
         onOpenChange={(value) => {
+          toggle(value);
           form.reset({
             participants: [defaultValue],
           });
-          toggle(value);
         }}
       >
         <Form {...form}>
@@ -154,32 +161,55 @@ const NewParticipants = () => {
                         )}
                       />
                       <div className="flex justify-between gap-2">
-                        <FormField
-                          control={form.control}
-                          name={`participants.${index}.age`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Age</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Age" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`participants.${index}.gender`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Gender</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Gender" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                        <div className="flex-1">
+                          <FormField
+                            control={form.control}
+                            name={`participants.${index}.age`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Age</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Age" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <FormField
+                            control={form.control}
+                            name={`participants.${index}.gender`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Gender</FormLabel>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    onValueChange={field.onChange}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Gender" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value={"Male"}>
+                                        Male
+                                      </SelectItem>
+                                      <SelectItem value="Female">
+                                        Female
+                                      </SelectItem>
+                                      <SelectItem value="Other">
+                                        Other
+                                      </SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
                       <FormField
                         control={form.control}
@@ -240,7 +270,7 @@ const NewParticipants = () => {
                 </div>
 
                 <DialogFooter className="gap-2">
-                  <Button variant="outline" onClick={close}>
+                  <Button variant="outline" onClick={handleClose}>
                     Cancel
                   </Button>
                   <Button>

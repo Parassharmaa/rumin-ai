@@ -6,8 +6,7 @@ import {
   type ChatCompletionRequestMessage,
   Configuration,
   OpenAIApi,
-  type ResponseTypes,
-} from "openai-edge";
+} from "openai";
 import {
   focusGroupParticipantSystemPrompt,
   focusGroupParticipantUserPrompt,
@@ -64,10 +63,7 @@ export const focusGroupRouter = createTRPCRouter({
         presence_penalty: 0,
       });
 
-      const data =
-        (await response.json()) as ResponseTypes["createChatCompletion"];
-
-      const message = data.choices?.[0]?.message;
+      const message = response.data.choices?.[0]?.message;
 
       if (!message) {
         throw new Error("Invalid response");

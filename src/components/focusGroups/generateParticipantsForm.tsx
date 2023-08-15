@@ -28,7 +28,12 @@ const GenerateParticipantsForm = ({ onData }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="sm" variant="outline" className="gap-2">
+        <Button
+          disabled={isLoading}
+          size="sm"
+          variant="outline"
+          className="gap-2"
+        >
           {isLoading && <Icons.spinner className="animate-spin" />}
 
           {!isLoading && <MagicWandIcon />}

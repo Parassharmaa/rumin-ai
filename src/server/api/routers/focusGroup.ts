@@ -13,7 +13,7 @@ import {
   focusGroupParticipantUserPrompt,
 } from "~/utils/prompts";
 import { parseCsvToJson } from "~/utils/parser";
-import { AIParticipantResponse } from "~/utils/interface";
+import { type AIParticipantResponse } from "~/utils/interface";
 
 export const runtime = "edge";
 
@@ -35,8 +35,10 @@ export const focusGroupRouter = createTRPCRouter({
       const project = await ctx.prisma.project.findUnique({
         where: {
           id: input.projectId,
+          userId: ctx.session.user.id,
         },
       });
+
       if (!project) {
         throw new Error("Project not found");
       }

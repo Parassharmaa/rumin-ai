@@ -5,11 +5,21 @@ export const parseCsvToJson = (csv: string | undefined, separator = ",") => {
   const lines = csv.split("\n");
   if (lines.length > 0) {
     const headers = lines[0] != undefined ? lines[0].split(separator) : [];
+
+    // strip double quotes from the header
+    headers.forEach((header, index) => {
+      headers[index] = header.replace(/"/g, "");
+    });
+
     const data = lines.slice(1).map((line) => {
-      const values = line.split(",");
+      // split the current line into columns based on the double quotes
+      const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+
       const row = Object({});
       headers.forEach((header, index) => {
-        row[header] = values[index];
+        // strip double quotes from the value
+        const value = values[index]?.replace(/"/g, "");
+        row[header] = value;
       });
       return row;
     });

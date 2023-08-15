@@ -46,21 +46,21 @@ const formSchema = z.object({
   ),
 });
 
+const defaultValue = {
+  age: "",
+  background: "",
+  bio: "",
+  name: "",
+  gender: "",
+};
+
 const NewParticipants = () => {
   const { isOpen, open, close, toggle } = useDisclosure();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      participants: [
-        {
-          age: "",
-          background: "",
-          bio: "",
-          name: "",
-          gender: "",
-        },
-      ],
+      participants: [defaultValue],
     },
   });
 
@@ -86,7 +86,9 @@ const NewParticipants = () => {
         modal
         open={isOpen}
         onOpenChange={(value) => {
-          form.reset();
+          form.reset({
+            participants: [defaultValue],
+          });
           toggle(value);
         }}
       >

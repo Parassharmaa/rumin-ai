@@ -40,19 +40,31 @@ import { useRouter } from "next/router";
 const formSchema = z.object({
   participants: z.array(
     z.object({
-      name: z.string().nonempty({
-        message: "Name is required",
-      }),
-      age: z.string().nonempty({
-        message: "Age is required",
-      }),
-      gender: z.string().nonempty({
-        message: "Gender is required",
-      }),
-      background: z.string().nonempty({
-        message: "Background is required",
-      }),
-      bio: z.string(),
+      name: z
+        .string()
+        .nonempty({
+          message: "Name is required",
+        })
+        .max(50),
+      age: z
+        .string()
+        .nonempty({
+          message: "Age is required",
+        })
+        .max(5),
+      gender: z
+        .string()
+        .nonempty({
+          message: "Gender is required",
+        })
+        .max(10),
+      background: z
+        .string()
+        .nonempty({
+          message: "Background is required",
+        })
+        .max(50),
+      bio: z.string().max(300),
     })
   ),
 });

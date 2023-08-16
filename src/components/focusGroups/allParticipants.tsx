@@ -92,7 +92,7 @@ const AllParticipants = () => {
                   </div>
                 </div>
                 <Separator className="my-2" />
-                <div className="my-2 text-xs text-muted-foreground">
+                <div className="my-2 break-all text-xs text-muted-foreground">
                   {item.bio.substring(0, 400)}
                 </div>
               </div>

@@ -78,11 +78,11 @@ export const focusGroupRouter = createTRPCRouter({
         projectId: z.string(),
         participants: z.array(
           z.object({
-            name: z.string(),
-            age: z.string(),
-            gender: z.string(),
-            background: z.string(),
-            bio: z.string(),
+            name: z.string().max(50),
+            age: z.string().nonempty().max(5),
+            gender: z.string().nonempty().max(10),
+            background: z.string().nonempty().max(50),
+            bio: z.string().max(300),
           })
         ),
       })

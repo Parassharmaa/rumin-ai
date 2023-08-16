@@ -65,9 +65,13 @@ const defaultValue = {
   gender: "",
 };
 
-const NewParticipants = () => {
-  const { isOpen, open, close, toggle } = useDisclosure();
+interface Props {
+  toggle: (value: boolean) => void;
+  close: () => void;
+  isOpen: boolean;
+}
 
+const NewParticipants = ({ close, isOpen, toggle }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,10 +80,13 @@ const NewParticipants = () => {
   });
 
   const { mutate, isLoading } = api.focusGroup.addParticipant.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
+      await utils.focusGroup.allParticipants.invalidate();
       handleClose();
     },
   });
+
+  const utils = api.useContext();
 
   const { control } = form;
 
@@ -106,15 +113,6 @@ const NewParticipants = () => {
 
   return (
     <>
-      <Card
-        onClick={open}
-        className="min-h-[100px] cursor-pointer hover:shadow-md"
-      >
-        <div className="flex h-[100%] items-center justify-center text-center text-sm text-muted-foreground">
-          <div>+ Add Participants</div>
-        </div>
-      </Card>
-
       <Dialog
         modal
         open={isOpen}

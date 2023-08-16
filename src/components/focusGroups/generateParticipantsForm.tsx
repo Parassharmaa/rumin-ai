@@ -41,19 +41,19 @@ const GenerateParticipantsForm = ({ onData }: Props) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        {Array(5)
+        {Array(6)
           .fill(0)
           .map((item, idx) => (
             <DropdownMenuItem
               onClick={() =>
                 mutate({
                   projectId: router.query.id as string,
-                  participantCount: idx + 2,
+                  participantCount: idx + 1,
                 })
               }
               key={idx}
             >
-              <span>{idx + 2} Participants</span>
+              <span>{idx + 1} Participants</span>
             </DropdownMenuItem>
           ))}
       </DropdownMenuContent>

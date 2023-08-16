@@ -116,4 +116,19 @@ export const focusGroupRouter = createTRPCRouter({
 
       return participants;
     }),
+
+  allParticipants: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const participants = await ctx.prisma.focusGroupParticipants.findMany({
+        where: {
+          projectId: input.projectId,
+        },
+      });
+      return participants;
+    }),
 });

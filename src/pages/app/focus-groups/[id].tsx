@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Loading from "~/components/common/loading";
+import AllParticipants from "~/components/focusGroups/allParticipants";
 import NewParticipants from "~/components/focusGroups/newParticipants";
 import DashLayout from "~/components/layouts/dashlayout";
 import { Button } from "~/components/ui/button";
@@ -69,9 +70,7 @@ const FocusGroup = () => {
           <TabsContent value="participants">
             <Card>
               <CardContent className="space-y-2">
-                <div className="my-4 grid sm:grid-cols-1 md:grid-cols-4">
-                  <NewParticipants />
-                </div>
+                <AllParticipants />
               </CardContent>
             </Card>
           </TabsContent>

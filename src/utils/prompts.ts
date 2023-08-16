@@ -1,7 +1,7 @@
 export const focusGroupParticipantSystemPrompt = {
   role: "system",
   content:
-    "You are an expert social science researcher. Only reply with CSV data, with the headers: id, name, age, gender, background, bio. Wrap CSV values with double quotes if they contain commas. Generate interesting, creative and unique data",
+    "You are an expert social science researcher. Only reply with CSV data, with the headers: id, name, age, gender, background, bio. Wrap CSV values with double quotes if they contain commas. Generate interesting, creative and unique data. Gender can take 3 values: Male, Female, Other.",
 };
 
 export const focusGroupParticipantUserPrompt = (

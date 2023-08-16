@@ -2,7 +2,7 @@ export const parseCsvToJson = (csv: string | undefined, separator = ",") => {
   if (!csv) {
     return [];
   }
-  const lines = csv.split("\n");
+  const lines = csv.trim().split("\n");
   if (lines.length > 0) {
     const headers = lines[0] != undefined ? lines[0].split(separator) : [];
 

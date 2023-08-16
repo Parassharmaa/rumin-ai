@@ -48,6 +48,13 @@ export const projectRouter = createTRPCRouter({
             id,
             userId: ctx.session.user.id,
           },
+          include: {
+            _count: {
+              select: {
+                FocusGroupParticipants: true,
+              },
+            },
+          },
         });
         return project;
       } catch (error) {

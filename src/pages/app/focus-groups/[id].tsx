@@ -1,3 +1,4 @@
+import { UserIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import Loading from "~/components/common/loading";
 import AllParticipants from "~/components/focusGroups/allParticipants";
@@ -63,7 +64,14 @@ const FocusGroup = () => {
                 <CardDescription>{data.description}</CardDescription>
               </CardHeader>
               <Separator />
-              <CardContent className="space-y-2"></CardContent>
+              <CardContent className="space-y-2">
+                <div className="my-4 flex items-center gap-2 font-light text-muted-foreground">
+                  <UserIcon size="16px" />
+                  <div className="text-sm">
+                    {data._count.FocusGroupParticipants} Participants
+                  </div>
+                </div>
+              </CardContent>
             </Card>
           </TabsContent>
 

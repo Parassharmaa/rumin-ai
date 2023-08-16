@@ -31,7 +31,7 @@ const AllParticipants = () => {
             className="min-h-[100px] cursor-pointer hover:shadow-md"
           >
             <div className="flex h-[100%] items-center justify-center text-center text-sm text-muted-foreground">
-              <div>+ Add Participants</div>
+              <div>+ Add Personas</div>
             </div>
           </Card>
         )}

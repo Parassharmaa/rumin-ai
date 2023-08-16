@@ -4,7 +4,6 @@ import {
   DialogDescription,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { Card } from "../ui/card";
 import { useFieldArray, useForm } from "react-hook-form";
 import { DialogFooter, DialogHeader } from "../ui/dialog";
 import {
@@ -64,7 +63,7 @@ const formSchema = z.object({
           message: "Background is required",
         })
         .max(50),
-      bio: z.string().max(300),
+      bio: z.string().max(500),
     })
   ),
 });
@@ -146,7 +145,7 @@ const NewParticipants = ({ close, isOpen, toggle }: Props) => {
                 className="max-h-screen overflow-y-scroll sm:max-w-[600px]"
               >
                 <DialogHeader>
-                  <DialogTitle>Add Participants</DialogTitle>
+                  <DialogTitle>Add Personas</DialogTitle>
                   <DialogDescription>
                     Auto generate or manually add participants to your focus
                     group
@@ -172,7 +171,7 @@ const NewParticipants = ({ close, isOpen, toggle }: Props) => {
                     >
                       <div className="flex justify-between">
                         <div className="text-muted-foreground">
-                          Participant {index + 1}
+                          Persona {index + 1}
                         </div>
 
                         {fields.length !== 1 && (
@@ -281,7 +280,7 @@ const NewParticipants = ({ close, isOpen, toggle }: Props) => {
                             <FormLabel>Bio</FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder="About Participant"
+                                placeholder="About the user"
                                 {...field}
                               />
                             </FormControl>
@@ -309,7 +308,7 @@ const NewParticipants = ({ close, isOpen, toggle }: Props) => {
                     >
                       <PlusIcon className="h-4 text-muted-foreground" />
                       <div className="text-sm text-muted-foreground">
-                        Add Participant
+                        Add More
                       </div>
                     </Button>
                   )}

@@ -53,7 +53,7 @@ const GenerateParticipantsForm = ({ onData }: Props) => {
               }
               key={idx}
             >
-              <span>{idx + 1} Participants</span>
+              <span>{idx + 1} Personas</span>
             </DropdownMenuItem>
           ))}
       </DropdownMenuContent>

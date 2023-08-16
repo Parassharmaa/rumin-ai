@@ -51,7 +51,7 @@ const FocusGroup = () => {
               <TabsTrigger value="overview" className="w-[100%]">
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="participants">Participants</TabsTrigger>
+              <TabsTrigger value="participants">Personas</TabsTrigger>
               <TabsTrigger value="agenda">Agenda</TabsTrigger>
               <TabsTrigger value="transcript">Transcript</TabsTrigger>
             </TabsList>
@@ -68,7 +68,7 @@ const FocusGroup = () => {
                 <div className="my-4 flex items-center gap-2 font-light text-muted-foreground">
                   <UserIcon size="16px" />
                   <div className="text-sm">
-                    {data._count.FocusGroupParticipants} Participants
+                    {data._count.FocusGroupParticipants} Personas
                   </div>
                 </div>
               </CardContent>

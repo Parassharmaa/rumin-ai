@@ -1,4 +1,4 @@
-export const parseCsvToJson = (csv: string | undefined, separator = ",") => {
+export const parseCsvToJson = (csv: string | null, separator = ",") => {
   if (!csv) {
     return [];
   }

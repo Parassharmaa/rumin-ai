@@ -2,25 +2,25 @@ import { ProjectType } from "@prisma/client";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-import {
-  type ChatCompletionRequestMessage,
-  Configuration,
-  OpenAIApi,
-} from "openai";
+import OpenAi from "openai";
 import {
   focusGroupParticipantSystemPrompt,
   focusGroupParticipantUserPrompt,
 } from "~/utils/prompts";
 import { parseCsvToJson } from "~/utils/parser";
 import { type AIParticipantResponse } from "~/utils/interface";
+import {
+  type CreateChatCompletionRequestMessage,
+  type ChatCompletionMessage,
+} from "openai/resources/chat";
 
 export const runtime = "edge";
 
-const apiConfig = new Configuration({
+const apiConfig = {
   apiKey: process.env.OPENAI_API_KEY!,
-});
+};
 
-const openai = new OpenAIApi(apiConfig);
+const openai = new OpenAi(apiConfig);
 
 export const focusGroupRouter = createTRPCRouter({
   generateParticipants: protectedProcedure
@@ -45,16 +45,16 @@ export const focusGroupRouter = createTRPCRouter({
         throw new Error("Invalid project type");
       }
 
-      const response = await openai.createChatCompletion({
+      const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         stream: false,
         messages: [
-          focusGroupParticipantSystemPrompt as ChatCompletionRequestMessage,
+          focusGroupParticipantSystemPrompt as ChatCompletionMessage,
           focusGroupParticipantUserPrompt(
             project.title,
             project?.description ?? "",
             input.participantCount
-          ) as ChatCompletionRequestMessage,
+          ) as CreateChatCompletionRequestMessage,
         ],
         max_tokens: 2500,
         temperature: 0.9,
@@ -63,7 +63,7 @@ export const focusGroupRouter = createTRPCRouter({
         presence_penalty: 0,
       });
 
-      const message = response.data.choices?.[0]?.message;
+      const message = response.choices?.[0]?.message;
 
       if (!message) {
         throw new Error("Invalid response");

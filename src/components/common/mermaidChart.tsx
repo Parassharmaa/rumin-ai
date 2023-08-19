@@ -13,6 +13,7 @@ import {
   ContextMenuTrigger,
 } from "~/components/ui/context-menu";
 import html2canvas from "html2canvas";
+import { ScrollArea } from "../ui/scroll-area";
 
 const MermaidChart = ({
   code,
@@ -36,7 +37,7 @@ const MermaidChart = ({
     theme,
     securityLevel: "loose",
     flowchart: {
-      useMaxWidth: true,
+      useMaxWidth: false,
       htmlLabels: true,
     },
   });
@@ -105,7 +106,11 @@ const MermaidChart = ({
     <>
       <ContextMenu>
         <ContextMenuTrigger>
-          {content && <div className={`mermaid-div-${id} `} />}
+          {content && (
+            <ScrollArea
+              className={`mermaid-div-${id} w-[100%] overflow-x-auto overflow-y-scroll`}
+            />
+          )}
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem onClick={copySvg} className="gap-2">

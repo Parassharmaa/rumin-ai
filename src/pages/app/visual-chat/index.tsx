@@ -8,7 +8,6 @@ import { Textarea } from "~/components/ui/textarea";
 import { Icons } from "~/components/ui/icons";
 import DashLayout from "~/components/layouts/dashlayout";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const Chart = () => {
   const {
@@ -39,11 +38,9 @@ const Chart = () => {
   return (
     <div className="px-1">
       <div className="flex h-[94vh] flex-col">
-        <ScrollArea className="relative my-2 flex-1 justify-end overflow-y-auto rounded-sm border-2 py-4">
-          <div className="w-[100%] text-center">
-            <MermaidChart code={mermaidCode ?? ""} />
-          </div>
-        </ScrollArea>
+        <div className="relative my-2 flex-1 justify-end overflow-auto rounded-sm border-2 py-4">
+          <MermaidChart code={mermaidCode ?? ""} />
+        </div>
         {!isLoading && otherText && (
           <ScrollArea className="my-2 max-h-[100px] flex-1 overflow-y-auto whitespace-break-spaces rounded-md bg-muted p-2 text-left text-sm">
             <>{otherText.trim()}</>

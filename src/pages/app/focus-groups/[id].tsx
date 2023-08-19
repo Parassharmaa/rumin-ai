@@ -37,7 +37,7 @@ const FocusGroup = () => {
   }
 
   return (
-    <div>
+    <div className="p-4">
       <div className="grid gap-4">
         <div className="text-2xl font-bold">Focus Group Playground</div>
         <div className="text-md font-light">

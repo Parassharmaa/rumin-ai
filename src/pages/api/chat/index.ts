@@ -20,7 +20,11 @@ export default async function handler(
     messages: [chartSystemPrompt as ChatCompletionMessage, ...messages],
   });
 
-  const stream = OpenAIStream(aiResponse);
+  const stream = OpenAIStream(aiResponse, {
+    onCompletion(completion) {
+      console.log(completion);
+    },
+  });
 
   return streamToResponse(stream, res);
 }

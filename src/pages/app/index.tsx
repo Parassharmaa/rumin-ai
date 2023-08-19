@@ -9,7 +9,7 @@ import { Separator } from "~/components/ui/separator";
 
 const App = () => {
   return (
-    <div>
+    <div className="p-4">
       <div className="flex items-center justify-between pb-2">
         <div className="text-2xl">All Projects</div>
 

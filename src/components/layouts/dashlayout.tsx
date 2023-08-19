@@ -36,7 +36,7 @@ export default function DashLayout({
         </div>
       </div>
       <Separator orientation="horizontal" />
-      <main className="container p-8">{children}</main>
+      <main className="container">{children}</main>
     </>
   );
 }

@@ -105,9 +105,7 @@ const MermaidChart = ({
     <>
       <ContextMenu>
         <ContextMenuTrigger>
-          {content && (
-            <div className={`mermaid-div-${id} rounded-sm border-2`} />
-          )}
+          {content && <div className={`mermaid-div-${id} `} />}
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem onClick={copySvg} className="gap-2">

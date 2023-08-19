@@ -7,7 +7,8 @@ import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import { Icons } from "~/components/ui/icons";
 import DashLayout from "~/components/layouts/dashlayout";
-import { RefreshCwIcon } from "lucide-react";
+import { ScrollArea } from "~/components/ui/scroll-area";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const Chart = () => {
   const {
@@ -36,19 +37,18 @@ const Chart = () => {
   const otherText = chartCode?.replace(/```mermaid([\s\S]*)```/, "") ?? "";
 
   return (
-    <div>
-      <div className="flex h-[90vh] flex-col">
-        <div className="relative flex-1 justify-end overflow-y-auto py-4">
-          <div className="text-center">
+    <div className="px-1">
+      <div className="flex h-[94vh] flex-col">
+        <ScrollArea className="relative my-2 flex-1 justify-end overflow-y-auto rounded-sm border-2 py-4">
+          <div className="w-[100%] text-center">
             <MermaidChart code={mermaidCode ?? ""} />
-
-            {!isLoading && otherText && (
-              <div className="text-md absolute bottom-0  left-0 right-0 my-2 max-h-[200px] overflow-y-auto whitespace-break-spaces rounded-md bg-muted p-2 text-justify">
-                {otherText.trim()}
-              </div>
-            )}
           </div>
-        </div>
+        </ScrollArea>
+        {!isLoading && otherText && (
+          <ScrollArea className="my-2 max-h-[100px] flex-1 overflow-y-auto whitespace-break-spaces rounded-md bg-muted p-2 text-left text-sm">
+            <>{otherText.trim()}</>
+          </ScrollArea>
+        )}
         <form
           onSubmit={handleSubmit}
           onKeyDown={(e) => {
@@ -56,11 +56,11 @@ const Chart = () => {
               handleSubmit(e);
             }
           }}
-          className="flex w-full items-end space-x-3"
+          className="flex w-full items-end space-x-3 pb-4"
         >
           <Textarea
             minLength={1}
-            placeholder="Visualize Solar System..."
+            placeholder="Create gantt chart..."
             onChange={handleInputChange}
             value={input}
             className="flex-1 resize-none rounded-md border bg-muted"

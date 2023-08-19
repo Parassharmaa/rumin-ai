@@ -36,7 +36,7 @@ export default function DashLayout({
         </div>
       </div>
       <Separator orientation="horizontal" />
-      <main className="container">{children}</main>
+      <main className="md:container">{children}</main>
     </>
   );
 }

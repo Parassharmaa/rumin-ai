@@ -5,6 +5,7 @@ import { ProfileOptions } from "../common/profileDropdown";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import Link from "next/link";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export default function DashLayout({
   children,
@@ -21,22 +22,26 @@ export default function DashLayout({
 
   return (
     <>
-      <div className="h-full flex-col p-2 px-4 lg:flex">
-        <div className="flex justify-between">
-          <div className="flex items-center space-x-1">
-            <PiIcon size="20px" />
-            <div className="z-20 flex items-center text-lg font-medium">
-              <Link href="/app"> Rumin AI</Link>
+      <div className="width-[100%] bg-red fixed left-0 right-0 top-0 z-50 flex-col lg:flex">
+        <div className="bg-primary-foreground">
+          <div className="flex justify-between p-2 px-4">
+            <div className="flex items-center space-x-1">
+              <PiIcon size="20px" />
+              <div className="z-20 flex items-center text-lg font-medium">
+                <Link href="/app"> Rumin AI</Link>
+              </div>
+            </div>
+            <div className="flex space-x-4">
+              <ProfileOptions />
+              <ThemeToggle />
             </div>
           </div>
-          <div className="flex space-x-4">
-            <ProfileOptions />
-            <ThemeToggle />
-          </div>
+          <Separator orientation="horizontal" />
         </div>
       </div>
-      <Separator orientation="horizontal" />
-      <main className="md:container">{children}</main>
+      <main className="mt-16">
+        <ScrollArea>{children}</ScrollArea>
+      </main>
     </>
   );
 }

@@ -6,13 +6,14 @@ import { Button } from "~/components/ui/button";
 import { Icons } from "~/components/ui/icons";
 
 const Home = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
   return (
     <div>
       <div className="m-4 flex justify-end">
         <ThemeToggle />
       </div>
-      <div className="flex min-h-[90vh] flex-col justify-center px-2">
+      <div className="bg-red flex min-h-[90vh] flex-col justify-center px-2">
         <h1 className="mx-auto max-w-2xl pb-4 text-center text-6xl font-semibold tracking-tight text-primary transition-colors">
           RuminAI
         </h1>
@@ -25,7 +26,7 @@ const Home = () => {
         </div>
         <div className="flex flex-col items-center justify-center">
           <div>
-            {!session && (
+            {!session && status !== "loading" && (
               <Button onClick={() => signIn("google")} variant="outline">
                 <Icons.google className="mr-2 h-4 w-4" />
                 Sign in with Google
@@ -33,7 +34,12 @@ const Home = () => {
             )}
           </div>
           <div>
-            {session && (
+            {status === "loading" && (
+              <Button variant="outline" className="space-x-2 hover:space-x-4">
+                <Icons.spinner className="animate-spin" />
+              </Button>
+            )}
+            {session && status === "authenticated" && (
               <Button
                 asChild
                 variant="outline"

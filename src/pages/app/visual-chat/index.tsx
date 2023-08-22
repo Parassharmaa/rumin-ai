@@ -9,6 +9,7 @@ import { Icons } from "~/components/ui/icons";
 import DashLayout from "~/components/layouts/dashlayout";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { useToast } from "~/components/ui/use-toast";
+import { ChatCompletionAction } from "~/utils/interface";
 
 const Chart = () => {
   const {
@@ -18,7 +19,11 @@ const Chart = () => {
     handleSubmit,
     isLoading,
     reload,
-  } = useChat({});
+  } = useChat({
+    body: {
+      action: ChatCompletionAction.ChartMessage,
+    },
+  });
 
   const { toast } = useToast();
 

@@ -166,7 +166,7 @@ const NewParticipants = ({ close, isOpen, toggle }: Props) => {
                 <div className="p-1">
                   {fields.map((item, index) => (
                     <div
-                      key={index}
+                      key={item.id}
                       className="border-1 my-2 grid w-full items-center gap-2 rounded-md bg-slate-50 p-4 dark:bg-slate-900"
                     >
                       <div className="flex justify-between">

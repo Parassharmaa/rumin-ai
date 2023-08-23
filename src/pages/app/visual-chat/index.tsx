@@ -30,9 +30,9 @@ const Chart = () => {
   const submitChat = (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
     // check input should be less than 500 characters
-    if (input.length > 500) {
+    if (input.length > 5000) {
       toast({
-        description: "Input should be less than 500 characters",
+        description: "Input should be less than 5000 characters",
         duration: 3000,
       });
 

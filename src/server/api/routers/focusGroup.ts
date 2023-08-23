@@ -13,7 +13,7 @@ export const focusGroupRouter = createTRPCRouter({
             age: z.string().nonempty().max(5),
             gender: z.string().nonempty().max(10),
             background: z.string().nonempty().max(50),
-            bio: z.string().max(500),
+            bio: z.string().max(5000),
           })
         ),
       })
